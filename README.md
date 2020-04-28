@@ -1,0 +1,2 @@
+# Thoth
+The Thoth Project
