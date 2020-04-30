@@ -8,7 +8,6 @@ using Thoth.Data;
 namespace ThothWebApp
 {
     [Route("api/quoteitem")]
-    [ApiController]
     public class QuotaItemPublicController  : ControllerBase
     {
         private readonly IDataRepository<QuoteItem> _repository;
@@ -18,7 +17,7 @@ namespace ThothWebApp
         }
 
          //GET: api/quotaitem
-       [Route("/")]
+
        [HttpGet]
        public async Task<ActionResult<QuoteItem>> Get()
        {
@@ -26,7 +25,6 @@ namespace ThothWebApp
        }
 
        //POST: api/quotaitem
-       [Route("/")]
        [HttpPost]
        public async Task<IActionResult> Post([FromBody]QuoteItem item)
        {

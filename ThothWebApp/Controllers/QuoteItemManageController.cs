@@ -8,7 +8,6 @@ using Thoth.Data;
 namespace Thoth
 {
     [Route("manage/quoteitem")]
-    [ApiController]
     public class QuoteItemManageController  : ControllerBase
     {
         private readonly IDataRepository<QuoteItem> _repository;
