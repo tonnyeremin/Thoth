@@ -2,6 +2,7 @@
 const api = "https://thothwebapp.azurewebsites.net/api/quoteitem";
 $(document).ready(function(){
 $('#showrandombtn').click(showrandom)
+$('#submitform').submit(submit)
 });
 
 function showrandom(data){
@@ -14,3 +15,15 @@ function showrandom(data){
             })
         };
       
+ function submit(e){
+     e.preventDefault();
+     $.ajax({
+        url: api,
+        type: 'post',
+        dataType: 'application/json',
+        data: $("#submitform").serialize(),
+        success: function(data) {
+          
+        }
+});
+ }     

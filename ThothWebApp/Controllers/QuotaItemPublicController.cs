@@ -18,16 +18,21 @@ namespace ThothWebApp
 
          //GET: api/quotaitem
        [HttpGet]
-       public async Task<ActionResult<QuoteItem>> Get()
+       public async Task<ActionResult<QuoteItemDTO>> Get()
        {
-           return await _repository.GetRandom();
+           var item =  await _repository.GetRandom();
+           return item.ToDTO();
        }
 
        //POST: api/quotaitem
        [HttpPost]
-       public async Task<IActionResult> Post([FromBody]QuoteItem item)
+       public async Task<IActionResult> Post([FromBody]QuoteItemDTO item)
        {
-          await _repository.Add(item);
+          var model = item.ToModel();
+          model.PostTime = DateTime.UtcNow;
+          model.IsVisible = false;
+
+          await _repository.Add(model);
 
           return NoContent();
        }

@@ -20,5 +20,6 @@ namespace Thoth.Data
         public DateTime PostTime{get; set;}
         [Column("is_visible")]
         public bool IsVisible {get; set;}
+
     }
 }

@@ -58,5 +58,7 @@ namespace Thoth.Data
             item.IsVisible = newEntity.IsVisible;
             return  _context.SaveChangesAsync();
         }
+
+       
     }
 }

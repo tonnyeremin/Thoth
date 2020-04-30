@@ -4,38 +4,67 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/theme.css">
 
-    <title>Hello, world!</title>
+    <title>Thoht</title>
   </head>
   <body>
+    <nav class="site-header sticky-top py-1">
+        <div class="container d-flex flex-column flex-md-row justify-content-between">
+         Header
+        </div>
+    </nav>
+
+  
+
     <div class="container">
        
-        <h1>Hello, world!</h1>
+        <div class="row" id="header">
+            <img src="img/header.webp" alt="Hedaer image"/>
+        </div>
+        <div class="theaser">
+            <h3>People were asked the question: “What words have changed you, influenced your life?”</h3>
+            <h3>Click the button to see one randomly chosen answer, inspiring advice and a good wish.</h3>
+        </div>
+
+
+
         <button type="button" id="showrandombtn" class="btn btn-primary btn-lg">Show</button>
 
-        <form>
+        <h2>What do YOU want to say?</h2>
+        <div class ="languagedecalimer">
+            <p>The project is international, so please type in English. We reserve the right to refuse publishing
+                your quote if it contains explicit language, calls for violence and discrimination.</p>
+        </div>
+        <div class="submittionform">
+        <form id="submitform">
+            <div class="form-group">
+                <label for="exampleInputEmail1">What words have changed you, influenced your life?</label>
+                <input name="primaryText" type="textarea" class="form-control" id="textanswer1" rows ="4">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">What would you wish to other people?</label>
+                <input name="secondaryText" type="textarea" class="form-control" id="textanswer1" rows ="2">
+            </div>
+              
             <div class="form-group">
                 <label for="exampleInputEmail1">Full Name</label>
-                <input class="form-control" id="exampleInputEmail1" aria-describedby="inputHelp" placeholder="Enter your full name">
-              </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Question 1!</label>
-              <input type="textarea" class="form-control" id="textanswer1" rows ="4">
-
+                <input name="author" secondaryTextclass="form-control" id="exampleInputEmail1" aria-describedby="inputHelp" placeholder="Enter your full name">
             </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Question 1!</label>
-                <input type="textarea" class="form-control" id="textanswer1" rows ="2">
-  
-              </div>
-          
-            <div class="form-group form-check">
 
+            <div class="form-group form-check">
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
+            
             <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+        </form>
+        </div>
+        <div class="sumitionresult">
+            Thankks
+        </div>
+         
 
           <div class="modal fade" id="quoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
