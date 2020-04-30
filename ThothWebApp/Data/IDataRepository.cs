@@ -1,13 +1,15 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Thoth.Data
 {
     public interface IDataRepository<T>
     {
-        IEnumerable<T> GetAll();
-        T Get(long i);
-        void Add(T entity);
-        void Update(T entity, T newEntity);
-        void Delete(T entity);
+        Task<List<T>> GetAll();
+        ValueTask<T> Get(long id);
+        Task Add(T entity);
+        Task Update(long id, T newEntity);
+        Task Delete(T entity);
+        Task<T> GetRandom();
     }
 }

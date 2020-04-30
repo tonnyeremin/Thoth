@@ -8,8 +8,6 @@ namespace Thoth.Data
     [Table("quotes")]
     public class QuoteItem
     {
-        
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]   
         public long Id {get; set;}
         [Column("primary_text")]
