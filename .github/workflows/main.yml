@@ -7,7 +7,8 @@ name: Publish Static Web App to Azure Blob Storage
 # events but only for the master branch
 on:
   push:
-    branches: [ Thoth_1.0 ]
+    branches: 
+     - 'Thoth_1.0'
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
