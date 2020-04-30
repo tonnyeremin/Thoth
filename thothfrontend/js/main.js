@@ -1,18 +1,26 @@
 
 const api = "https://thothwebapp.azurewebsites.net/api/quoteitem";
+
 $(document).ready(function(){
-    $('#showrandombtn').click(showrandom)
-    $('#submitform').submit(submit)
+    $('#loadspinner').hide(); 
+    $('#showrandombtn').click(showrandom);
+    $('#submitform').submit(submit); 
 });
 
 function showrandom(data){
+    $('#showrandombtn').hide();
+    $('#loadspinner').show();   
     $.getJSON(api, {
-            }).done(function(data){  
+            }).done(function(data){
+               
                 $('#primarytext').text(data.primaryText)
                 $('#secondarytext').text(data.secondaryText)
-                $('#author').text(data.Author)
+                $('#author').text(data.author)
+                $('#loadspinner').hide(); 
                 $('#quoteModal').modal()   
+                $('#showrandombtn').show();
             })
+          
         };
       
  function submit(e){
@@ -26,15 +34,14 @@ function showrandom(data){
         processData: false,
         data: JSON.stringify(objectifyForm($('#submitform').serializeArray())),
         success: function(data) {
-          console.log(data);
-          
+          $('#submittionform').hide();
+          $('#sumitionresult').show();
         }
 });
 
  }  
  
- function objectifyForm(formArray) {//serialize data function
-
+ function objectifyForm(formArray) {
     var returnArray = {};
     for (var i = 0; i < formArray.length; i++){
       returnArray[formArray[i]['name']] = formArray[i]['value'];

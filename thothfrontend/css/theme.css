@@ -1,3 +1,20 @@
+@font-face {
+  font-family: 'opensans';
+  src: url('../fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'francois';
+  src: url('../fonts/FrancoisOne-Regular.ttf');
+}
+
+html *
+{
+   font-size: 1em !important;
+   font-family: opensans !important;
+}
+h1, h2, h3, h4, h5, h6 {font-family: francois !important;}
+
 .container {
     max-width: 960px;
   }
@@ -7,7 +24,7 @@
    */
   
   .site-header {
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(255, 255, 255);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
   }
@@ -20,9 +37,18 @@
     text-decoration: none;
   }
 
+  .modal-border{
+    border: 6px solid #000;
+    padding: 1em;
+    border-radius: 4px;
+  }
+
   #header {
     background-image:url("../img/header.webp");
-    width:100%;
     text-align:center;
+  }
+
+#sumitionresult {
+  display: none;
 }
   

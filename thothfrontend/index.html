@@ -11,7 +11,7 @@
   <body>
     <nav class="site-header sticky-top py-1">
         <div class="container d-flex flex-column flex-md-row justify-content-between">
-         Header
+           THOTH PROJECT
         </div>
     </nav>
 
@@ -22,21 +22,28 @@
         <div class="row" id="header">
             <img src="img/header.webp" alt="Hedaer image"/>
         </div>
-        <div class="theaser">
-            <h3>People were asked the question: “What words have changed you, influenced your life?”</h3>
-            <h3>Click the button to see one randomly chosen answer, inspiring advice and a good wish.</h3>
+        <div class="theaser text-center">
+            <h1>People were asked the question: “What words have changed you, influenced your life?”</h1>
+            <h1>Click the button to see one randomly chosen answer, inspiring advice and a good wish.</h1>
         </div>
 
-
-
-        <button type="button" id="showrandombtn" class="btn btn-primary btn-lg">Show</button>
-
-        <h2>What do YOU want to say?</h2>
+        <div class="text-center">
+            <button type="button" id="showrandombtn" class="btn btn-danger btn-lg">Show</button>
+            <div id="loadspinner" class="spinner-border text-danger" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="alert alert-secondary" role="alert">
+            Support our project. A portion of received funds will be transferred to the charity fund ..., for
+            the purposes of the ... program.
+          </div>
+        
+        <div id="submittionform">
+        <h2 class="text-center">What do YOU want to say?</h2>
         <div class ="languagedecalimer">
             <p>The project is international, so please type in English. We reserve the right to refuse publishing
                 your quote if it contains explicit language, calls for violence and discrimination.</p>
         </div>
-        <div class="submittionform">
         <form id="submitform">
             <div class="form-group">
                 <label for="exampleInputEmail1">What words have changed you, influenced your life?</label>
@@ -58,23 +65,36 @@
               <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-danger btn-lg">Submit</button>
         </form>
         </div>
-        <div class="sumitionresult">
-            Thankks
+        <div id="sumitionresult">
+            <a href="https://twitter.com/share" class="btn btn-social btn-twitter">
+                <i class="fa fa-twitter"></i> Share on Twitter</i> </a>
         </div>
+
+       
          
 
           <div class="modal fade" id="quoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
-               
                 <div class="modal-body">
-                  <p id ='primarytext'></p>
-                  <p id ='secondarytext'></p>
-                  <p id ='author'></p>
-                <p id ='author'></p>
+                    <div class="modal-border">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <p id ='primarytext'></p>
+                        </div>
+                        <div class="row">
+                            <p id ='secondarytext'></p>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p id ='author'></p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
                 
               </div>
