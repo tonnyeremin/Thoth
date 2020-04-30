@@ -17,7 +17,6 @@ namespace ThothWebApp
         }
 
          //GET: api/quotaitem
-
        [HttpGet]
        public async Task<ActionResult<QuoteItem>> Get()
        {
