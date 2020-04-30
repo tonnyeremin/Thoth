@@ -18,6 +18,7 @@ namespace ThothWebApp
         }
 
          //GET: api/quotaitem
+       [Route("/")]
        [HttpGet]
        public async Task<ActionResult<QuoteItem>> Get()
        {
@@ -25,11 +26,15 @@ namespace ThothWebApp
        }
 
        //POST: api/quotaitem
+       [Route("/")]
        [HttpPost]
        public async Task<IActionResult> Post([FromBody]QuoteItem item)
        {
           await _repository.Add(item);
+
           return NoContent();
        }
+
+
     }
 }
