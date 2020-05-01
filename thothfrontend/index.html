@@ -9,7 +9,7 @@
     <title>Thoht</title>
   </head>
   <body>
-    <nav class="site-header sticky-top py-1">
+    <nav class="site-header sticky-top py-1 default-margin">
         <div class="container d-flex flex-column flex-md-row justify-content-between">
            THOTH PROJECT
         </div>
@@ -22,23 +22,23 @@
         <div class="row" id="header">
             <img src="img/header.webp" alt="Hedaer image"/>
         </div>
-        <div class="theaser text-center">
+        <div class="teaser text-center default-margin">
             <h1>People were asked the question: “What words have changed you, influenced your life?”</h1>
             <h1>Click the button to see one randomly chosen answer, inspiring advice and a good wish.</h1>
         </div>
 
-        <div class="text-center">
+        <div class="text-center default-margin">
             <button type="button" id="showrandombtn" class="btn btn-danger btn-lg">Show</button>
             <div id="loadspinner" class="spinner-border text-danger" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
-        <div class="alert alert-secondary" role="alert">
+        <div class="alert alert-secondary default-margin" role="alert">
             Support our project. A portion of received funds will be transferred to the charity fund ..., for
             the purposes of the ... program.
           </div>
         
-        <div id="submittionform">
+        <div id="submittionform default-margin">
         <h2 class="text-center">What do YOU want to say?</h2>
         <div class ="languagedecalimer">
             <p>The project is international, so please type in English. We reserve the right to refuse publishing
@@ -68,13 +68,10 @@
             <button type="submit" class="btn btn-danger btn-lg">Submit</button>
         </form>
         </div>
-        <div id="sumitionresult">
+        <div id="sumitionresult default-margin">
             <a href="https://twitter.com/share" class="btn btn-social btn-twitter">
                 <i class="fa fa-twitter"></i> Share on Twitter</i> </a>
         </div>
-
-       
-         
 
           <div class="modal fade" id="quoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -102,11 +99,6 @@
           </div>
 
     </div>
-
-   
-  
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
