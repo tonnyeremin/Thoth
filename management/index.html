@@ -83,7 +83,7 @@
                                 <label for="exampleInputEmail1">ID:</label>
                             </div>
                             <div class="col">
-                                <input type="text" readonly class="form-control-plaintext" id="id" name="id" value="">
+                                <input type="text" readonly class="form-control-plaintext" id="id" name="Id" value="">
                             </div>
                             <div class="col-2">
                                 <label for="exampleInputEmail1">Post date:</label>
@@ -140,13 +140,12 @@
             $.getJSON(api, {
                 }).done(function(data){
                     data.forEach(record => addrow(record));
-                    $(".editrow").click(editrow)
-                    $(".deleterow").click(deleterow)
+                   
                 })                              
             });
 
-        function editrow(){
-            var $id = $(this).data("id"); 
+        function editrow(obj){
+            var $id = $(obj).data("id"); 
             $.getJSON(api+"/"+$id, {
             }).done(function(data){
                 $("#id").val(data.id);
@@ -166,9 +165,9 @@
             $('#quoteModal').modal();   
         };
 
-        function deleterow()
+        function deleterow(obj)
         {
-            var $id = $(this).data("id");
+            var $id = $(obj).data("id");
             $.ajax({
                 url: api+"/"+$id,
                 type: 'delete',
@@ -200,7 +199,17 @@
                     data: JSON.stringify(objectifyForm($('#editform').serializeArray())),
                     success: function(data) {
                         $('#quoteModal').modal('hide');
-                        alert("New item was added sucefully!")
+                            alert("New item was added sucefully!")
+                            var row = '<tr id= "'+ data.id +'"><td scope="row">' + data.id + '</td>' +
+                                        '<td>' + data.primaryText + '</td>' +
+                                            '<td>' + data.secondaryText + '</td>' +
+                                                '<td>' + data.author + '</td>' +
+                                                    '<td>' + data.postTime + '</td>' +
+                                                        '<td>' + data.isVisible + '</td>' +
+                                                            '<td> <button type="button" onclick="editrow(this)" data-id ="' + data.id +  '"class="btn btn-outline-primary editrow">Edit</button></td>' +
+                                                            '<td> <button type="button" onclick="deleterow(this)" data-id ="' + data.id +  '"class="btn btn-outline-danger deleterow">Delete</button></td>' +  
+                                                    '</tr>';
+                            $('#recordsTable tr:first').after(row); 
                         },
                         done: function()
                         {
@@ -220,6 +229,17 @@
                     data: JSON.stringify(objectifyForm($("#editform").serializeArray())),
                     success: function(data) {
                         $('#quoteModal').modal('hide');
+                            $('#' + $id).html(
+                                '<td>' + data.id + '</td>' +
+                                    '<td>' + data.primaryText + '</td>' +
+                                        '<td>' + data.secondaryText + '</td>' +
+                                            '<td>' + data.author + '</td>' +
+                                                '<td>' + data.postTime + '</td>' +
+                                                     '<td>' + data.isVisible + '</td>' +
+                                                        '<td> <button type="button" onclick="editrow(this)" data-id ="' + data.id +  '"class="btn btn-outline-primary editrow">Edit</button></td>' +
+                                                        '<td> <button type="button" onclick="deleterow(this)" data-id ="' + data.id +  '"class="btn btn-outline-danger deleterow">Delete</button></td>'
+
+                            )
                         },
                         done: function()
                         {
@@ -236,9 +256,8 @@
                                 '<td>' + data.author + '</td>' +
                                     '<td>' + data.postTime + '</td>' +
                                         '<td>' + data.isVisible + '</td>' +
-                                            '<td> <button type="button" data-id ="' + data.id +  '"class="btn btn-outline-primary editrow">Edit</button></td>' +
-                                            '<td> <button type="button" data-id ="' + data.id +  '"class="btn btn-outline-danger deleterow">Delete</button></td>' +  
-                                            
+                                            '<td> <button type="button" onclick="editrow(this)" data-id ="' + data.id +  '"class="btn btn-outline-primary editrow">Edit</button></td>' +
+                                            '<td> <button type="button" onclick="deleterow(this)" data-id ="' + data.id +  '"class="btn btn-outline-danger deleterow">Delete</button></td>' +  
                                       '</tr>';
                 $('#recordsTable tr:last').after(row); 
                                             

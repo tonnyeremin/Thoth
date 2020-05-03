@@ -62,14 +62,14 @@ namespace Thoth
 
        //POST: api/quotaitem
        [HttpPost]
-       public async Task<IActionResult> Post([FromBody]NewQuotaItemDto item)
+       public async Task<ActionResult<QuoteItem>> Post([FromBody]NewQuotaItemDto item)
        {
           try
           {
                 var model = item.ToModel();
                 model.PostTime = DateTime.UtcNow;
                 await _repository.Add(model);
-                return NoContent();
+                return  model;
           }
           catch(Exception)
           {
@@ -79,14 +79,14 @@ namespace Thoth
 
        //PUT: api/quotaitem/1
         [HttpPut("{id}")] 
-        public async Task<IActionResult> PutQuoteItem(long id, [FromBody]EditQuotaItemDto item)
+        public async Task<ActionResult<QuoteItem>> PutQuoteItem(long id, [FromBody]EditQuotaItemDto item)
         {
             try
             {
                 var model = item.ToModel();
                 model.PostTime = DateTime.UtcNow;
                 await _repository.Update(id, model); 
-                return NoContent(); 
+                return model; 
             }
             catch(Exception)
             {
