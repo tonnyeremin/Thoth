@@ -20,21 +20,35 @@ namespace Thoth
        [HttpGet]
        public async Task<ActionResult<QuoteItemDTO>> Get()
        {
-           var item =  await _repository.GetRandom();
-           return item.ToDTO();
+           try
+           {
+                var item =  await _repository.GetRandom();
+                return item.ToDTO();
+           }
+           catch(Exception)
+           {
+                 return BadRequest(new { Message = "Some errors occured. Please, try agian later." });
+           }
        }
 
        //POST: api/quotaitem
        [HttpPost]
        public async Task<IActionResult> Post([FromBody]QuoteItemDTO item)
        {
-          var model = item.ToModel();
-          model.PostTime = DateTime.UtcNow;
-          model.IsVisible = false;
+          try
+          {
+            var model = item.ToModel();
+            model.PostTime = DateTime.UtcNow;
+            model.IsVisible = false;
 
-          await _repository.Add(model);
+            await _repository.Add(model);
 
-          return NoContent();
+            return NoContent();
+          }
+          catch(Exception)
+          {
+              return BadRequest(new { Message = "Some errors occured. Please, try agian later." });
+          }
        }
 
 

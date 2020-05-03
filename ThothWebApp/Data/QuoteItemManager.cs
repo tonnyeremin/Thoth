@@ -30,9 +30,10 @@ namespace Thoth.Data
             return _context.QuoteItems.FindAsync(id);
         }
 
-        public Task<List<QuoteItem>> GetAll()
+        public Task<PagedList<QuoteItem>> GetAll(QuoteItemParameters parameters)
         {
-           return _context.QuoteItems.ToListAsync();
+           IQueryable<QuoteItem> queryable = _context.QuoteItems.OrderBy(item=>item.PostTime).AsQueryable();
+           return Task.Run<PagedList<QuoteItem>>(() => PagedList<QuoteItem>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize));
         }
 
         public Task<QuoteItem> GetRandom()
