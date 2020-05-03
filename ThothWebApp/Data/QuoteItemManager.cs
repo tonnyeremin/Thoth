@@ -38,10 +38,7 @@ namespace Thoth.Data
 
         public Task<QuoteItem> GetRandom()
         {
-            Random rand = new Random();
-            double r = rand.NextDouble();
-            int toSkip =  (int)Math.Round((_context.QuoteItems.LongCount() - 1) * r);
-            return _context.QuoteItems.Skip(toSkip).Take(1).FirstAsync();
+            return _context.QuoteItems.Where(c=>c.IsVisible).OrderBy(c=>Guid.NewGuid()).FirstAsync();
         }
 
         public Task Update(long id, QuoteItem newEntity)

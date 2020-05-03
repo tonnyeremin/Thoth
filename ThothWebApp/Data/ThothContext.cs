@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace Thoth.Data
@@ -7,5 +8,6 @@ namespace Thoth.Data
         public ThothContext(DbContextOptions<ThothContext> options) : base(options){}
 
         public DbSet<QuoteItem> QuoteItems{get; set;}
+
     }
 }

@@ -17,5 +17,7 @@ namespace Thoth
                 _pageSize = (value > maxPageSize) ? maxPageSize : value;
             }
         }
+
+        public bool IsVisible{get; set;}
     }
 }
