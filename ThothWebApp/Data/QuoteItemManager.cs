@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Thoth.Data;
 
-namespace Thoth.Data
+namespace Thoth
 {
     public class QuoteItemManager : IDataRepository<QuoteItem>
     {
@@ -13,15 +14,15 @@ namespace Thoth.Data
         {
             _context = context;
         }
-        public Task Add(QuoteItem entity)
+        public Task Add(QuoteItem  item)
         {
-            _context.QuoteItems.Add(entity);
+            _context.QuoteItems.Add(item);
              return _context.SaveChangesAsync();
         }
 
-        public Task Delete(QuoteItem entity)
+        public Task Delete(QuoteItem  item)
         {
-            _context.QuoteItems.Remove(entity);
+            _context.QuoteItems.Remove(item);
              return _context.SaveChangesAsync();
         }
 
@@ -30,10 +31,9 @@ namespace Thoth.Data
             return _context.QuoteItems.FindAsync(id);
         }
 
-        public Task<PagedList<QuoteItem>> GetAll(QuoteItemParameters parameters)
+        public Task<List<QuoteItem>> GetAll(QuoteItemParameters parameters)
         {
-           IQueryable<QuoteItem> queryable = _context.QuoteItems.OrderBy(item=>item.PostTime).AsQueryable();
-           return Task.Run<PagedList<QuoteItem>>(() => PagedList<QuoteItem>.ToPagedList(queryable, parameters.PageNumber, parameters.PageSize));
+           return  _context.QuoteItems.OrderBy(item=>item.PostTime).ToListAsync();
         }
 
         public Task<QuoteItem> GetRandom()
@@ -57,6 +57,5 @@ namespace Thoth.Data
             return  _context.SaveChangesAsync();
         }
 
-       
     }
 }

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Thoth.Data;
 
 namespace Thoth
@@ -19,12 +19,12 @@ namespace Thoth
 
        //GET: api/quotaitem
        [HttpGet]
-       public async Task<ActionResult<IEnumerable<QuoteItem>>> Get([FromQuery] QuoteItemParameters parameters)
+       public async Task<ActionResult<PagedList<QuoteItemExDTO>>> Get([FromQuery] QuoteItemParameters parameters)
        {
            try
            {
-                var list = await _repository.GetAll(parameters);
-
+                var items = await _repository.GetAll(parameters);
+                var list =  PagedList<QuoteItemExDTO>.ToPagedList(items.Select(s=> GetDTO(s)).AsQueryable(), parameters.PageNumber, parameters.PageSize);
                 var metadata = new 
                 {
                     list.TotalCount,
@@ -48,11 +48,12 @@ namespace Thoth
 
        //GET: api/quotaitem/1
         [HttpGet("{id}")]
-        public async Task<ActionResult<QuoteItem>> GetAction(long id)
+        public async Task<ActionResult<QuoteItemExDTO>> GetAction(long id)
         {
             try
             {
-                return await _repository.Get(id);
+                var item = await _repository.Get(id);
+                return GetDTO(item);
             }
             catch(Exception)
             {
@@ -62,14 +63,14 @@ namespace Thoth
 
        //POST: api/quotaitem
        [HttpPost]
-       public async Task<ActionResult<QuoteItem>> Post([FromBody]NewQuotaItemDto item)
+       public async Task<ActionResult<QuoteItemExDTO>> Post([FromBody]QuoteItemExDTO item)
        {
           try
           {
-                var model = item.ToModel();
+                var model = GetItem(item);
                 model.PostTime = DateTime.UtcNow;
                 await _repository.Add(model);
-                return  model;
+                return  GetDTO(model);
           }
           catch(Exception)
           {
@@ -79,14 +80,14 @@ namespace Thoth
 
        //PUT: api/quotaitem/1
         [HttpPut("{id}")] 
-        public async Task<ActionResult<QuoteItem>> PutQuoteItem(long id, [FromBody]EditQuotaItemDto item)
+        public async Task<ActionResult<QuoteItemExDTO>> PutQuoteItem(long id, [FromBody]QuoteItemExDTO item)
         {
             try
             {
-                var model = item.ToModel();
+                var model = GetItem(item);
                 model.PostTime = DateTime.UtcNow;
                 await _repository.Update(id, model); 
-                return model; 
+                return GetDTO(model); 
             }
             catch(Exception)
             {
@@ -112,6 +113,37 @@ namespace Thoth
             {
                  return BadRequest(new { Message = "Some errors occured. Please, try agian later." });
             }
+       }
+
+
+       private QuoteItemExDTO GetDTO(QuoteItem item)
+       {
+           QuoteItemExDTO dto = new QuoteItemExDTO();
+           dto.Id = item.Id.ToString();
+           dto.IsApproved = item.IsApproved.ToString();
+           dto.IsVisible = item.IsVisible.ToString();
+           dto.Author = item.Author;
+           dto.PrimaryText = item.PrimaryText;
+           dto.SecondaryText = item.SecondaryText;
+           dto.PostDate = item.PostTime.ToString();
+
+           return dto;
+       }
+
+       private QuoteItem GetItem(QuoteItemExDTO itemExDTO)
+       {
+           QuoteItem item = new QuoteItem();
+           item.Id = string.IsNullOrEmpty(itemExDTO.Id)? 0: long.Parse(itemExDTO.Id);
+           item.Author = itemExDTO.Author;
+           item.IsApproved = string.IsNullOrEmpty(itemExDTO.IsApproved)? false : bool.Parse(itemExDTO.IsApproved);
+           item.IsVisible = string.IsNullOrEmpty(itemExDTO.IsVisible)? false : bool.Parse(itemExDTO.IsVisible);
+           item.PrimaryText = itemExDTO.PrimaryText;
+           item.SecondaryText = itemExDTO.SecondaryText;
+           DateTime dateTime;
+           if(DateTime.TryParse(itemExDTO.PostDate, out dateTime))
+                item.PostTime = dateTime;
+
+           return item;
        }
 
 

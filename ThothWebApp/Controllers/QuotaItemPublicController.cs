@@ -23,7 +23,7 @@ namespace Thoth
            try
            {
                 var item =  await _repository.GetRandom();
-                return item.ToDTO();
+                return GetQuoteDtoItem(item);
            }
            catch(Exception)
            {
@@ -37,7 +37,7 @@ namespace Thoth
        {
           try
           {
-            var model = item.ToModel();
+            var model = GetQuoteItem(item);
             model.PostTime = DateTime.UtcNow;
             model.IsVisible = false;
 
@@ -49,6 +49,27 @@ namespace Thoth
           {
               return BadRequest(new { Message = "Some errors occured. Please, try agian later." });
           }
+       }
+
+       private QuoteItem GetQuoteItem(QuoteItemDTO itemDTO)
+       {
+           return new QuoteItem(){
+               Id = 0,
+               Author = itemDTO.Author,
+               PrimaryText = itemDTO.PrimaryText,
+               SecondaryText = itemDTO.SecondaryText,
+               IsVisible = false,
+               IsApproved = false
+           };
+       }
+
+       private QuoteItemDTO GetQuoteDtoItem(QuoteItem item)
+       {
+           return new QuoteItemDTO(){
+               Author = item.Author,
+               PrimaryText = item.PrimaryText,
+               SecondaryText = item.SecondaryText,
+           };
        }
 
 

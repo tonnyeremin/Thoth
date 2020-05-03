@@ -28,7 +28,7 @@ namespace Thoth
         {
             
             services.AddDbContext<Data.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ThothDB"]));
-            services.AddScoped<Data.IDataRepository<Data.QuoteItem>, Data.QuoteItemManager>();
+            services.AddScoped<Data.IDataRepository<Data.QuoteItem>, QuoteItemManager>();
             services.AddControllers();
              services.AddCors(options =>
             {
