@@ -1,6 +1,7 @@
+using System;
 using Thoth.Data;
 
-namespace ThothWebApp
+namespace Thoth
 {
     public static class DataExtentions
     {
@@ -10,6 +11,27 @@ namespace ThothWebApp
                 PrimaryText = dto.PrimaryText,
                 SecondaryText = dto.SecondaryText,
                 Author = dto.Author
+            };
+        }
+
+        public static QuoteItem ToModel(this NewQuotaItemDto dto)
+        {
+            return new QuoteItem( ){
+                PrimaryText = dto.PrimaryText,
+                SecondaryText = dto.SecondaryText,
+                Author = dto.Author,
+                IsVisible = Boolean.Parse(dto.IsVisible)
+            };
+        }
+
+         public static QuoteItem ToModel(this EditQuotaItemDto dto)
+        {
+            return new QuoteItem( ){
+                PrimaryText = dto.PrimaryText,
+                SecondaryText = dto.SecondaryText,
+                Author = dto.Author,
+                IsVisible = Boolean.Parse(dto.IsVisible),
+                Id =Int64.Parse(dto.Id)
             };
         }
 

@@ -31,19 +31,23 @@ namespace Thoth
         }
 
        //POST: api/quotaitem
-        [HttpPost]
-       public async Task<IActionResult> Post([FromBody]QuoteItem item)
+       [HttpPost]
+       public async Task<IActionResult> Post([FromBody]NewQuotaItemDto item)
        {
-          await _repository.Add(item);
+          var model = item.ToModel();
+          model.PostTime = DateTime.UtcNow;
+          await _repository.Add(model);
           return NoContent();
        }
 
        //PUT: api/quotaitem/1
         [HttpPut("{id}")] 
-        public async Task<IActionResult> PutQuoteItem(long id, [FromBody]QuoteItem item)
+        public async Task<IActionResult> PutQuoteItem(long id, [FromBody]EditQuotaItemDto item)
         {
-           await _repository.Update(id, item); 
-           return NoContent(); 
+            var model = item.ToModel();
+            model.PostTime = DateTime.UtcNow;
+            await _repository.Update(id, model); 
+            return NoContent(); 
         } 
 
        //DELETE api/quotaitem/1
