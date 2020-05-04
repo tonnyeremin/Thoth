@@ -36,15 +36,11 @@ namespace Thoth
            if(parameters.NewOnly)
            {
                 return  _context.QuoteItems.Where(item => !item.IsApproved)
-                                        .OrderBy(item=>item.PostTime)
-                                            .Skip((parameters.PageNumber - 1) * parameters.PageSize)
-		                                        .Take( parameters.PageSize).ToListAsync();
+                                        .OrderBy(item=>item.PostTime).ToListAsync();
            }
            else
            {
-                return  _context.QuoteItems.OrderBy(item=>item.PostTime)
-                                            .Skip((parameters.PageNumber - 1) * parameters.PageSize)
-		                                        .Take( parameters.PageSize).ToListAsync();
+                return  _context.QuoteItems.OrderBy(item=>item.PostTime).ToListAsync();
            }
           
         }

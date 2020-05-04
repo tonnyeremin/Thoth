@@ -36,6 +36,7 @@ namespace Thoth
                     builder => builder
                         .AllowAnyMethod()
                         .AllowCredentials()
+                        .WithExposedHeaders("x-pagination")
                         .SetIsOriginAllowed((host) => true)
                         .AllowAnyHeader());
             });

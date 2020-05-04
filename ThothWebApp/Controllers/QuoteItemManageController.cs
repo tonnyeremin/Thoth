@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Thoth.Data;
 
@@ -19,6 +20,7 @@ namespace Thoth
 
        //GET: api/quotaitem
        [HttpGet]
+       //[Authorize]
        public async Task<ActionResult<PagedList<QuoteItemExDTO>>> Get([FromQuery] QuoteItemParameters parameters)
        {
            try
@@ -48,6 +50,7 @@ namespace Thoth
 
        //GET: api/quotaitem/1
         [HttpGet("{id}")]
+       // [Authorize]
         public async Task<ActionResult<QuoteItemExDTO>> GetAction(long id)
         {
             try
@@ -63,6 +66,7 @@ namespace Thoth
 
        //POST: api/quotaitem
        [HttpPost]
+       //[Authorize]
        public async Task<ActionResult<QuoteItemExDTO>> Post([FromBody]QuoteItemExDTO item)
        {
           try
@@ -79,7 +83,8 @@ namespace Thoth
        }
 
        //PUT: api/quotaitem/1
-        [HttpPut("{id}")] 
+        [HttpPut("{id}")]
+        //[Authorize] 
         public async Task<ActionResult<QuoteItemExDTO>> PutQuoteItem(long id, [FromBody]QuoteItemExDTO item)
         {
             try
@@ -97,6 +102,7 @@ namespace Thoth
 
        //DELETE api/quotaitem/1
        [HttpDelete("{id}")]
+       //[Authorize]
        public async Task<IActionResult> DeleteQuoteItem(long id)
        {
             try

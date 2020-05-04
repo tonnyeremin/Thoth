@@ -24,13 +24,15 @@
             <a class="navbar-brand" href="#">The Thoht Project</a>
         </nav>
 
-        <div id='alert' class='hide defmargin'></div>
+       
         </div>
         <div class="row">
                 <div class="container">
-                    <nav aria-label="...">
-                        <button type="button" class="btn btn-outline-primary defmargin addrow">Add new</button>
-                        <button type="button" data-toggle="button" aria-pressed="false" class="btn btn-outline-secondary defmargin newonly">Show All</button>
+                    <div id='alert' class='hide defmargin'></div>
+                    <nav class="nav nav-pills flex-column flex-sm-row">
+                        <a class="flex-sm-fill text-sm-center nav-link shownew active" href="#">New requests</a>
+                        <a class="flex-sm-fill text-sm-center nav-link showall" href="#">All items</a>
+                        <a class="flex-sm-fill text-sm-center nav-link addrow" href="#">Add new</a>
                     </nav>
                     <table id="recordsTable" class="table table-hover defmargin">
                         <thead>
@@ -42,10 +44,10 @@
                                 <th scope="col">Post Date</th>
                                 <th scope="col">IsVisible</th>
                                 <th scope="col"></th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody id="records">                       
-                        </tbody>
+                        <tbody class="records"></tbody>                       
                     </table> 
                 </div>  
         </div>
@@ -131,174 +133,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <script>
-        var api = "https://localhost:5001/manage/quoteitem";
-
-        $(document).ready(function(){
-            $(".addrow").click(addnewrow);
-            $(".butomSave").click(savechanges);
-            $(".newonly").click(changemode);
-
-            refreshview();                            
-            });
-
-        function refreshview(){
-
-            $link = api+"?/NewOnly="+$('#newOnly').val();
-            
-            $.getJSON($link, {
-                }).done(function(data){
-                    $("#records").empty(); 
-                    data.forEach(record => addrow(record));
-                   
-                }) 
-        }; 
-        
-        function changemode()
-        {
-            if($('#newOnly').val() == "true")
-            {
-                $('#newOnly').val(false);
-            }
-            else
-            {
-                $('#newOnly').val(true);
-            }
-           
-         
-            refreshview();
-
-        };
-
-        function editrow(obj){
-            var $id = $(obj).data("id"); 
-            $.getJSON(api+"/"+$id, {
-            }).done(function(data){
-                $("#id").val(data.id);
-                $('#quoteModal').data("id", data.id);  
-                $("#primaryText").val(data.primaryText);
-                $("#secondaryText").val(data.secondaryText);
-                $("#author").val(data.author);
-                $("#postTime").val(data.postTime);
-                $("#isVisible").attr('checked',data.isVisible);
-                $('#quoteModal').modal();   
-            }) 
-        };
-
-        function addnewrow(){
-            $("#id").prop( "disabled", true );
-            $("#postTime").prop( "disabled", true );
-            $('#quoteModal').modal();   
-        };
-
-        function deleterow(obj)
-        {
-            var $id = $(obj).data("id");
-            $.ajax({
-                url: api+"/"+$id,
-                type: 'delete',
-                crossdomain: true,
-                success: function(data) {
-                    $('#' + $id).remove();
-                    alert("Delete sucefully!")
-                },
-        }); 
-        }
-
-        function alert(message){
-            $('#alert').html('<div class="alert alert-secondary"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>');
-            $('.alert').alert()
-        }
-
-        function savechanges()
-        {
-            var $id = $("#quoteModal").data("id"); 
-            if($id=="")
-            {
-                $.ajax({
-                    url: api,
-                    type: 'post',
-                    crossdomain: true,
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    processData: false,
-                    data: JSON.stringify(objectifyForm($('#editform').serializeArray())),
-                    success: function(data) {
-                        $('#quoteModal').modal('hide');
-                            alert("New item was added sucefully!")
-                            var row = '<tr id= "'+ data.id +'"><td scope="row">' + data.id + '</td>' +
-                                        '<td>' + data.primaryText + '</td>' +
-                                            '<td>' + data.secondaryText + '</td>' +
-                                                '<td>' + data.author + '</td>' +
-                                                    '<td>' + data.postTime + '</td>' +
-                                                        '<td>' + data.isVisible + '</td>' +
-                                                            '<td> <button type="button" onclick="editrow(this)" data-id ="' + data.id +  '"class="btn btn-outline-primary editrow">Edit</button></td>' +
-                                                            '<td> <button type="button" onclick="deleterow(this)" data-id ="' + data.id +  '"class="btn btn-outline-danger deleterow">Delete</button></td>' +  
-                                                    '</tr>';
-                            $('#recordsTable tr:first').after(row); 
-                        },
-                        done: function()
-                        {
-                            $('#quoteModal').modal('hide');   
-                        }
-                        });
-            }
-            else
-            {
-                $.ajax({
-                    url: api+"/"+$id,
-                    type: 'put',
-                    crossdomain: true,
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    processData: false,
-                    data: JSON.stringify(objectifyForm($("#editform").serializeArray())),
-                    success: function(data) {
-                        $('#quoteModal').modal('hide');
-                            $('#' + $id).html(
-                                '<td>' + data.id + '</td>' +
-                                    '<td>' + data.primaryText + '</td>' +
-                                        '<td>' + data.secondaryText + '</td>' +
-                                            '<td>' + data.author + '</td>' +
-                                                '<td>' + data.postTime + '</td>' +
-                                                     '<td>' + data.isVisible + '</td>' +
-                                                        '<td> <button type="button" onclick="editrow(this)" data-id ="' + data.id +  '"class="btn btn-outline-primary editrow">Edit</button></td>' +
-                                                        '<td> <button type="button" onclick="deleterow(this)" data-id ="' + data.id +  '"class="btn btn-outline-danger deleterow">Delete</button></td>'
-
-                            )
-                        },
-                        done: function()
-                        {
-                            $('#quoteModal').modal('hide');   
-                        }
-                        });
-            }
-        };
-
-        function addrow(data){
-            var row = '<tr id= "'+ data.id +'"><td scope="row">' + data.id + '</td>' +
-                        '<td>' + data.primaryText + '</td>' +
-                            '<td>' + data.secondaryText + '</td>' +
-                                '<td>' + data.author + '</td>' +
-                                    '<td>' + data.postTime + '</td>' +
-                                        '<td>' + data.isVisible + '</td>' +
-                                            '<td> <button type="button" onclick="editrow(this)" data-id ="' + data.id +  '"class="btn btn-outline-primary editrow">Edit</button></td>' +
-                                            '<td> <button type="button" onclick="deleterow(this)" data-id ="' + data.id +  '"class="btn btn-outline-danger deleterow">Delete</button></td>' +  
-                                      '</tr>';
-                $('#recordsTable tr:last').after(row); 
-                                            
-        };
-
-        function objectifyForm(formArray) {
-            var returnArray = {};
-            for (var i = 0; i < formArray.length; i++)
-            {
-               if(!formArray[i].disabled)
-                    returnArray[formArray[i]['name']] = formArray[i]['value'];
-            }
-            return returnArray;
-        };
-    </script>
+    <script src="js/manage.js"></script>
+       
   </body>
 </html>
