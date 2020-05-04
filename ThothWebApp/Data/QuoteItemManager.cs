@@ -33,7 +33,20 @@ namespace Thoth
 
         public Task<List<QuoteItem>> GetAll(QuoteItemParameters parameters)
         {
-           return  _context.QuoteItems.OrderBy(item=>item.PostTime).ToListAsync();
+           if(parameters.NewOnly)
+           {
+                return  _context.QuoteItems.Where(item => !item.IsApproved)
+                                        .OrderBy(item=>item.PostTime)
+                                            .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+		                                        .Take( parameters.PageSize).ToListAsync();
+           }
+           else
+           {
+                return  _context.QuoteItems.OrderBy(item=>item.PostTime)
+                                            .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+		                                        .Take( parameters.PageSize).ToListAsync();
+           }
+          
         }
 
         public Task<QuoteItem> GetRandom()

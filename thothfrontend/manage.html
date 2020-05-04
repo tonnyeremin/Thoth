@@ -18,7 +18,9 @@
   </head>
   <body>
 
-        <nav class="navbar navbar-dark bg-dark">
+    <input type="hidden" id="newOnly" type="checkbox" value="false"/>
+
+    <nav class="navbar navbar-dark bg-dark">
             <a class="navbar-brand" href="#">The Thoht Project</a>
         </nav>
 
@@ -26,7 +28,10 @@
         </div>
         <div class="row">
                 <div class="container">
-                    <button type="button" class="btn btn-outline-primary defmargin addrow">Add New</button>
+                    <nav aria-label="...">
+                        <button type="button" class="btn btn-outline-primary defmargin addrow">Add new</button>
+                        <button type="button" data-toggle="button" aria-pressed="false" class="btn btn-outline-secondary defmargin newonly">Show All</button>
+                    </nav>
                     <table id="recordsTable" class="table table-hover defmargin">
                         <thead>
                             <tr>
@@ -39,7 +44,7 @@
                                 <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody>                       
+                        <tbody id="records">                       
                         </tbody>
                     </table> 
                 </div>  
@@ -133,13 +138,38 @@
         $(document).ready(function(){
             $(".addrow").click(addnewrow);
             $(".butomSave").click(savechanges);
+            $(".newonly").click(changemode);
 
-            $.getJSON(api, {
+            refreshview();                            
+            });
+
+        function refreshview(){
+
+            $link = api+"?/NewOnly="+$('#newOnly').val();
+            
+            $.getJSON($link, {
                 }).done(function(data){
+                    $("#records").empty(); 
                     data.forEach(record => addrow(record));
                    
-                })                              
-            });
+                }) 
+        }; 
+        
+        function changemode()
+        {
+            if($('#newOnly').val() == "true")
+            {
+                $('#newOnly').val(false);
+            }
+            else
+            {
+                $('#newOnly').val(true);
+            }
+           
+         
+            refreshview();
+
+        };
 
         function editrow(obj){
             var $id = $(obj).data("id"); 

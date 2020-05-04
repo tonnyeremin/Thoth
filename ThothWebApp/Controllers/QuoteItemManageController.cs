@@ -125,7 +125,7 @@ namespace Thoth
            dto.Author = item.Author;
            dto.PrimaryText = item.PrimaryText;
            dto.SecondaryText = item.SecondaryText;
-           dto.PostDate = item.PostTime.ToString();
+           dto.PostTime = item.PostTime.ToShortDateString();
 
            return dto;
        }
@@ -140,7 +140,7 @@ namespace Thoth
            item.PrimaryText = itemExDTO.PrimaryText;
            item.SecondaryText = itemExDTO.SecondaryText;
            DateTime dateTime;
-           if(DateTime.TryParse(itemExDTO.PostDate, out dateTime))
+           if(DateTime.TryParse(itemExDTO.PostTime, out dateTime))
                 item.PostTime = dateTime;
 
            return item;

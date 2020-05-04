@@ -18,6 +18,6 @@ namespace Thoth
             }
         }
 
-        public bool IsVisible{get; set;}
+        public bool NewOnly{get; set;}
     }
 }

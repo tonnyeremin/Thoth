@@ -6,7 +6,7 @@ namespace Thoth
         public string IsVisible {get; set;}
         public string IsApproved{get; set;}
 
-        public string PostDate{get;set;}
+        public string PostTime{get;set;}
 
     }
 }
