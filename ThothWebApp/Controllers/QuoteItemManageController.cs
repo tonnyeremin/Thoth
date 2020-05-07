@@ -20,7 +20,7 @@ namespace Thoth
 
        //GET: api/quotaitem
        [HttpGet]
-       //[Authorize]
+       [Authorize]
        public async Task<ActionResult<PagedList<QuoteItemExDTO>>> Get([FromQuery] QuoteItemParameters parameters)
        {
            try
@@ -50,7 +50,7 @@ namespace Thoth
 
        //GET: api/quotaitem/1
         [HttpGet("{id}")]
-       // [Authorize]
+       [Authorize]
         public async Task<ActionResult<QuoteItemExDTO>> GetAction(long id)
         {
             try
@@ -66,13 +66,14 @@ namespace Thoth
 
        //POST: api/quotaitem
        [HttpPost]
-       //[Authorize]
+       [Authorize]
        public async Task<ActionResult<QuoteItemExDTO>> Post([FromBody]QuoteItemExDTO item)
        {
           try
           {
                 var model = GetItem(item);
                 model.PostTime = DateTime.UtcNow;
+                model.IsApproved = true;
                 await _repository.Add(model);
                 return  GetDTO(model);
           }
@@ -84,13 +85,14 @@ namespace Thoth
 
        //PUT: api/quotaitem/1
         [HttpPut("{id}")]
-        //[Authorize] 
+        [Authorize] 
         public async Task<ActionResult<QuoteItemExDTO>> PutQuoteItem(long id, [FromBody]QuoteItemExDTO item)
         {
             try
             {
                 var model = GetItem(item);
                 model.PostTime = DateTime.UtcNow;
+                model.IsApproved = true;
                 await _repository.Update(id, model); 
                 return GetDTO(model); 
             }
@@ -102,7 +104,7 @@ namespace Thoth
 
        //DELETE api/quotaitem/1
        [HttpDelete("{id}")]
-       //[Authorize]
+       [Authorize]
        public async Task<IActionResult> DeleteQuoteItem(long id)
        {
             try

@@ -1,5 +1,7 @@
 const api = "https://thothwebapp.azurewebsites.net/manage/quoteitem";
 
+//const api = "https://localhost:5001/manage/quoteitem";
+
 $(document).ready(function(){
     $(".shownew").click(shownew);
     $(".showall").click(showall);
