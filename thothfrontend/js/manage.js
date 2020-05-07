@@ -5,23 +5,27 @@ $(document).ready(function(){
     $(".showall").click(showall);
     $(".addrow").click(addnewrow);
     $(".butomSave").click(savechanges);
+    $(".prev a").click(function(){switchpage(true)});
+    $(".next a").click(function(){switchpage(false)});
     refreshview(true);                            
     });
 
     function shownew()
     {
-        $("#recordsTable tr").slice(1).remove();
+        $("#recordsTable").data("new", true)
+        $(".current a").data("current", 1)
         $(".showall").removeClass('active');
         $(".shownew").addClass('active');
-        refreshview(true);
+        refreshview();
     };
 
     function showall()
     {
-        $("#recordsTable tr").slice(1).remove();
+        $("#recordsTable").data("new", false)
+        $(".current a").data("current", 1)
         $(".shownew").removeClass('active');
         $(".showall").addClass('active');
-        refreshview(false);
+        refreshview();
     }
 
     function addnewrow(){
@@ -45,17 +49,7 @@ $(document).ready(function(){
                     data: JSON.stringify(objectifyForm($('#editform').serializeArray())),
                     success: function(data) {
                         $('#quoteModal').modal('hide');
-                            alert("New item was added sucefully!")
-                            var row = '<tr id= "'+ data.id +'"><td scope="row">' + data.id + '</td>' +
-                                        '<td>' + data.primaryText + '</td>' +
-                                            '<td>' + data.secondaryText + '</td>' +
-                                                '<td>' + data.author + '</td>' +
-                                                    '<td>' + data.postTime + '</td>' +
-                                                        '<td>' + data.isVisible + '</td>' +
-                                                            '<td> <button type="button" onclick="editrow(this)" data-id ="' + data.id +  '"class="btn btn-outline-primary editrow">Edit</button></td>' +
-                                                            '<td> <button type="button" onclick="deleterow(this)" data-id ="' + data.id +  '"class="btn btn-outline-danger deleterow">Delete</button></td>' +  
-                                                    '</tr>';
-                            $('#recordsTable tr:first').after(row); 
+                            refreshview()
                         },
                         done: function()
                         {
@@ -75,17 +69,7 @@ $(document).ready(function(){
                     data: JSON.stringify(objectifyForm($("#editform").serializeArray())),
                     success: function(data) {
                         $('#quoteModal').modal('hide');
-                            $('#' + $id).html(
-                                '<td>' + data.id + '</td>' +
-                                    '<td>' + data.primaryText + '</td>' +
-                                        '<td>' + data.secondaryText + '</td>' +
-                                            '<td>' + data.author + '</td>' +
-                                                '<td>' + data.postTime + '</td>' +
-                                                     '<td>' + data.isVisible + '</td>' +
-                                                        '<td> <button type="button" onclick="editrow(this)" data-id ="' + data.id +  '"class="btn btn-outline-primary editrow">Edit</button></td>' +
-                                                        '<td> <button type="button" onclick="deleterow(this)" data-id ="' + data.id +  '"class="btn btn-outline-danger deleterow">Delete</button></td>'
-
-                            )
+                            refreshview();
                         },
                         done: function()
                         {
@@ -95,8 +79,12 @@ $(document).ready(function(){
             }
         };
 
-    function refreshview(shownew){
-        $link = api+"?/NewOnly="+shownew;
+    function refreshview(){
+        $new = $("#recordsTable").data("new");
+        $current =  $(".current a").data("current");
+        $link = api+"?/NewOnly="+$new+"&pageNumber="+ $current;
+        
+        $("#recordsTable tr").slice(1).remove();
         $.getJSON($link, {
       
         }).done(function(data, text, request){
@@ -109,7 +97,38 @@ $(document).ready(function(){
 
     function populatepagination(header)
     {
-        
+        var headerObj = JSON.parse(header);
+
+        if(headerObj.HasPrevious){
+            $(".prev").removeClass("disabled");
+        }
+        else{
+            $(".prev").addClass("disabled");
+        }
+
+        $(".current a span").html(headerObj.CurrentPage + " from " + headerObj.TotalPages)
+        $(".current a").data("current", headerObj.CurrentPage)
+
+        if(headerObj.HasNext){
+            $(".next").removeClass("disabled");
+        }
+        else{
+            $(".next").addClass("disabled");
+        }
+    };
+
+    function switchpage(back)
+    {
+        $current =  $(".current a").data("current")
+        if(back){
+            $current--;
+        }
+        else{
+            $current++;
+        }
+        $(".current a").data("current", $current);
+        refreshview();
+
     };
 
     function editrow(obj){
@@ -135,7 +154,7 @@ $(document).ready(function(){
             type: 'delete',
             crossdomain: true,
             success: function(data) {
-                $('#' + $id).remove();
+                refreshview();
                 alert("Delete sucefully!")
             },
     }); 
