@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace Thoth
 {
@@ -46,6 +48,15 @@ namespace Thoth
                 options.TokenValidationParameters.ValidateIssuer = false;
             });
 
+            services.AddMvc(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            })
+            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
             services.AddDbContext<Data.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ThothDB"]));
             services.AddScoped<Data.IDataRepository<Data.QuoteItem>, QuoteItemManager>();
             services.AddControllers();
@@ -54,7 +65,7 @@ namespace Thoth
                 options.AddPolicy("CorsPolicy",
                     builder => builder
                         .AllowAnyMethod()
-                        .AllowCredentials()
+                        .AllowAnyOrigin()
                         .WithExposedHeaders("x-pagination")
                         .SetIsOriginAllowed((host) => true)
                         .AllowAnyHeader());
