@@ -1,4 +1,4 @@
-namespace Thoth
+namespace ThothBase
 {
     public class QuoteItemParameters
     {

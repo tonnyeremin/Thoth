@@ -1,6 +1,6 @@
 using System;
 
-namespace Thoth
+namespace ThothBase
 {
     public class Quote
     {

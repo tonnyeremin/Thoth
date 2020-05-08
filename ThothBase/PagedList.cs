@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Thoth
+namespace ThothBase
 {
     public class PagedList<T> : List<T>
     {

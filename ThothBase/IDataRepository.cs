@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Thoth.Data
+namespace ThothBase
 {
     public interface IDataRepository<T>
     {

@@ -5,12 +5,11 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Thoth.Data;
+using ThothBase;
 
 namespace Thoth
 {
     [Route("manage/quoteitem")]
-    [Authorize]
     public class QuoteItemManageController  : ControllerBase
     {
         private readonly IDataRepository<QuoteItem> _repository;

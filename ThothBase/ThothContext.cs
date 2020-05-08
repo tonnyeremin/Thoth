@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace Thoth.Data
+namespace ThothBase
 {
     public class ThothContext : DbContext
     {

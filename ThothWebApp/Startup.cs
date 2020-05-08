@@ -57,8 +57,8 @@ namespace Thoth
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            services.AddDbContext<Data.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ThothDB"]));
-            services.AddScoped<Data.IDataRepository<Data.QuoteItem>, QuoteItemManager>();
+            services.AddDbContext<ThothBase.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ThothDB"]));
+            services.AddScoped<ThothBase.IDataRepository<ThothBase.QuoteItem>, ThothBase.QuoteItemManager>();
             services.AddControllers();
              services.AddCors(options =>
             {
