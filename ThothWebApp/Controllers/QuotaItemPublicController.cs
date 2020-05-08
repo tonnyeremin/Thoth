@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Thoth.Data;
@@ -18,11 +19,16 @@ namespace Thoth
 
          //GET: api/quotaitem
        [HttpGet]
+       [AllowAnonymous]
        public async Task<ActionResult<QuoteItemDTO>> Get()
        {
            try
            {
                 var item =  await _repository.GetRandom();
+                
+                if(item== null)
+                     return NoContent();
+
                 return GetQuoteDtoItem(item);
            }
            catch(Exception)
@@ -33,6 +39,7 @@ namespace Thoth
 
        //POST: api/quotaitem
        [HttpPost]
+       [AllowAnonymous]
        public async Task<IActionResult> Post([FromBody]QuoteItemDTO item)
        {
           try
@@ -62,7 +69,6 @@ namespace Thoth
                IsApproved = false
            };
        }
-
        private QuoteItemDTO GetQuoteDtoItem(QuoteItem item)
        {
            return new QuoteItemDTO(){

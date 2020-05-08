@@ -45,6 +45,7 @@ namespace Thoth
 
                 options.TokenValidationParameters.ValidateIssuer = false;
             });
+
             services.AddDbContext<Data.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ThothDB"]));
             services.AddScoped<Data.IDataRepository<Data.QuoteItem>, QuoteItemManager>();
             services.AddControllers();
@@ -72,6 +73,7 @@ namespace Thoth
             app.UseCors("CorsPolicy");
             app.UseRouting();
             app.UseCookiePolicy();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

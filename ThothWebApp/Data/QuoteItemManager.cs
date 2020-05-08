@@ -47,7 +47,8 @@ namespace Thoth
 
         public Task<QuoteItem> GetRandom()
         {
-            return _context.QuoteItems.Where(c=>c.IsVisible).OrderBy(c=>Guid.NewGuid()).FirstAsync();
+            var items = _context.QuoteItems.OrderBy(c=>Guid.NewGuid()).Where(c=>c.IsVisible);
+            return items.FirstOrDefaultAsync();
         }
 
         public Task Update(long id, QuoteItem newEntity)
