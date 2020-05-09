@@ -149,6 +149,11 @@ h3{
   color: white;
 }
 
+.fa-telegram{
+  background: #0088cc;
+  color: white;
+}
+
 
 .animation  {
   animation: fadein 3s;

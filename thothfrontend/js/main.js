@@ -6,7 +6,22 @@ $(document).ready(function(){
     $('#showrandombtn').click(showrandom);
     $('#submitform').submit(submit);
     $('#linktext').val(this.URL);
+    populateShare(this);
 });
+
+function populateShare(document){
+
+  $url = document.URL
+  $text = encodeURIComponent('Check your tips here');
+
+  $('#linktext').val($url);
+  $('#tweet').attr("href", 'https://twitter.com/intent/tweet?text=Check%20your%20tips%20at&url='+ encodeURIComponent($url))
+  $('#facebook').attr("href",'http://www.facebook.com/sharer/sharer.php?display=page&u='+encodeURIComponent($url)+'&t=Check%20your%20tips%20at')
+  $('#linkedin').attr("href", 'https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent($url))
+  $('#whatsapp').attr("href", 'https://api.whatsapp.com/send?text=' + $text  + '%20' +encodeURIComponent($url))
+  $('#telegram').attr("href", 'https://t.me/share/url?url=' + $url + '&text=zxXZx' +$text)
+  $('#envelope').attr("href", 'mailto: ?subject=' + $text + '&body=' + $url)
+}
 
 function showrandom(data){
     $('#showrandombtn').hide();
