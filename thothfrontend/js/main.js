@@ -25,7 +25,7 @@ function populateShare(document){
 
 function populateQuoteShare(data){
 
-  $url = encodeURIComponent($(document).URL);
+  $url = encodeURIComponent(document.URL);
   $quote = data.primaryText;
 
   $auth = data.author;
@@ -78,7 +78,7 @@ function showrandom(data){
         dataType: 'json',
         processData: false,
         data: JSON.stringify(objectifyForm($('#submitform').serializeArray())),
-        
+
         success: function(data) {
           $('#sumitionresult').show();
           $('#formheader').html("Thank you for submitting your answers.");
