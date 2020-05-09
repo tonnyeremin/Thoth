@@ -32,7 +32,7 @@ namespace ThothBase
 
         public Task<List<QuoteItem>> GetAll(QuoteItemParameters parameters)
         {
-           if(parameters.NewOnly)
+           if(parameters.NewOnly == 1)
            {
                 return  _context.QuoteItems.Where(item => !item.IsApproved)
                                         .OrderBy(item=>item.PostTime).ToListAsync();
@@ -63,6 +63,7 @@ namespace ThothBase
             item.Author = newEntity.Author;
             item.PostTime = newEntity.PostTime;
             item.IsVisible = newEntity.IsVisible;
+            item.IsApproved = newEntity.IsApproved;
             return  _context.SaveChangesAsync();
         }
 

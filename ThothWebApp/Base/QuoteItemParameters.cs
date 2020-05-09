@@ -18,6 +18,6 @@ namespace ThothBase
             }
         }
 
-        public bool NewOnly{get; set;}
+        public int NewOnly{get; set;}
     }
 }

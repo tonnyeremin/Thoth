@@ -1,6 +1,6 @@
-const api = "https://thothwebapp.azurewebsites.net/manage/quoteitem";
+//const api = "https://thothwebapp.azurewebsites.net/manage/quoteitem";
 
-//const api = "https://localhost:5001/manage/quoteitem";
+const api = "https://localhost:5001/manage/quoteitem";
 
 $(document).ready(function(){
     $(".shownew").click(shownew);
@@ -9,12 +9,12 @@ $(document).ready(function(){
     $(".butomSave").click(savechanges);
     $(".prev a").click(function(){switchpage(true)});
     $(".next a").click(function(){switchpage(false)});
-    refreshview(true);                            
+    refreshview();                            
     });
 
     function shownew()
     {
-        $("#recordsTable").data("new", true)
+        $("#recordsTable").data("new", 1)
         $(".current a").data("current", 1)
         $(".showall").removeClass('active');
         $(".shownew").addClass('active');
@@ -23,7 +23,7 @@ $(document).ready(function(){
 
     function showall()
     {
-        $("#recordsTable").data("new", false)
+        $("#recordsTable").data("new", 0)
         $(".current a").data("current", 1)
         $(".shownew").removeClass('active');
         $(".showall").addClass('active');
@@ -84,7 +84,7 @@ $(document).ready(function(){
     function refreshview(){
         $new = $("#recordsTable").data("new");
         $current =  $(".current a").data("current");
-        $link = api+"?/NewOnly="+$new+"&pageNumber="+ $current;
+        $link = api+"?NewOnly="+$new+"&pageNumber="+ $current;
         
         $("#recordsTable tr").slice(1).remove();
         $.getJSON($link, {

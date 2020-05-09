@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "thothfrontend"
+		},
+		{
+			"path": "ThothWebApp"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "thothfrontend"
+	}
+}
