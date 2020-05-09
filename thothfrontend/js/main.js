@@ -4,7 +4,8 @@ const api = "https://thothwebapp.azurewebsites.net/api/quoteitem";
 $(document).ready(function(){
     $('#loadspinner').hide(); 
     $('#showrandombtn').click(showrandom);
-    $('#submitform').submit(submit); 
+    $('#submitform').submit(submit);
+    $('#linktext').val(this.URL);
 });
 
 function showrandom(data){
@@ -36,10 +37,18 @@ function showrandom(data){
         success: function(data) {
           $('#submittionform').hide();
           $('#sumitionresult').show();
+          $('#formheader').html("Thank you for submitting your answers.");
         }
 });
 
  }  
+
+ function copylink(){
+    var copyText = $('#linktext');
+    copyText.focus();
+    copyText.select();
+    document.execCommand("copy");
+ }
  
  function objectifyForm(formArray) {
     var returnArray = {};

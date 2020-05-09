@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/bdcb1ff764.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/theme.css">
 
@@ -36,7 +37,7 @@
             </div>
           </div>
               
-        <div class="support">
+        <div class="support animation">
           
             <h2> Support our project. </h2>
                 <p class="lead">A portion of received funds will be transferred to the charity fund ..., for
@@ -44,8 +45,8 @@
             </p>
         </div>
         
-        <h1 class="text-center default-margin">What do YOU want to say?</h1>
-        <div id="submittionform default-margin">
+        <h1 class="text-center default-margin" id="formheader">What do YOU want to say?</h1>
+        <div id="submittionform" class=" default-margin">
         <form id="submitform">
             <div class="form-group">
                 <textarea name="PrimaryText" type="textarea" class="form-control" rows="3" placeholder="What words have changed you, influenced your life?"></textarea>
@@ -65,9 +66,34 @@
         </form>
       
         </div>
-        <div id="sumitionresult default-margin">
-            <a href="https://twitter.com/share" class="btn btn-social btn-twitter">
-                <i class="fa fa-twitter"></i> Share on Twitter</i> </a>
+        
+        <div id="sumitionresult" class="text-center">
+            <div class="container">
+            <h2>Tell your friends about us.</h2>
+            <p>Involved people is out power. Help your friends to take part in our project.</p>
+            <h2>Share</h2>
+            <div class="row justify-content-md-center align-self-center">
+                <div class="col-5">
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#" class="fa fa-facebook"></a></li>
+                <li class="list-inline-item"><a href="#" class="fa fa-twitter"></a></li>
+                <li class="list-inline-item"><a href="#" class="fa fa-linkedin"></a></li>
+                <li class="list-inline-item"><a href="#" class="fa fa-whatsapp"></a></li>
+                <li class="list-inline-item"><a href="#" class="fa fa-envelope"></a></li>
+            </ul>
+              <div class="input-group  mb-3 text-center">
+                <input readonly type="text" class="form-control .col-sm-1" id="linktext">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" onclick=copylink() id="linktextcopy">Copy</button>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div> 
+        </div>
+
+              
+          
         </div>
           <div class="modal fade" id="quoteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -98,6 +124,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+   
     <script src="js/main.js"></script>
 </body>
 </html>
