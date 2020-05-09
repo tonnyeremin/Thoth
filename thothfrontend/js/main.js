@@ -23,6 +23,33 @@ function populateShare(document){
   $('#envelope').attr("href", 'mailto: ?subject=' + $text + '&body=' + $url)
 }
 
+function populateQuoteShare(data){
+
+  $url = encodeURIComponent($(document).URL);
+  $quote = data.primaryText;
+
+  $auth = data.author;
+  if($auth.length>50)
+  {
+    $auth = $auth.substring(0,50);
+    $auth = $auth+"...";
+  }
+
+  if( $quote.length>200)
+  {
+    $quote = $quote.substring(0,200);
+    $quote = $quote + "... ";
+  }
+  $text = encodeURIComponent($quote +' by '+ $auth);
+
+  $('#mtweet').attr("href", 'https://twitter.com/intent/tweet?text='+$text+'&url='+$url)
+  $('#mfacebook').attr("href",'http://www.facebook.com/sharer/sharer.php?display=page&u='+$url+'&t=' + $text)
+  $('#mlinkedin').attr("href", 'https://www.linkedin.com/sharing/share-offsite/?url='+$url)
+  $('#mwhatsapp').attr("href", 'https://api.whatsapp.com/send?text=' + $text  + '%20' +$url)
+  $('#mtelegram').attr("href", 'https://t.me/share/url?url=' + $url + '&text=' +$text)
+  $('#menvelope').attr("href", 'mailto: ?subject=' + 'TipsForMe' + '&body=' + $text)
+}
+
 function showrandom(data){
     $('#showrandombtn').hide();
     $('#loadspinner').show();   
@@ -32,8 +59,9 @@ function showrandom(data){
                 $('#primarytext').text(data.primaryText)
                 $('#secondarytext').text(data.secondaryText)
                 $('#author').text(data.author)
-                $('#loadspinner').hide(); 
-                $('#quoteModal').modal()   
+                $('#loadspinner').hide();
+                populateQuoteShare(data); 
+                $('#quoteModal').modal();   
                 $('#showrandombtn').show();
             })
           
@@ -41,6 +69,7 @@ function showrandom(data){
       
  function submit(e){
      e.preventDefault();
+     $('#submittionform').hide();
      $.ajax({
         url: api,
         type: 'post',
@@ -49,8 +78,8 @@ function showrandom(data){
         dataType: 'json',
         processData: false,
         data: JSON.stringify(objectifyForm($('#submitform').serializeArray())),
+        
         success: function(data) {
-          $('#submittionform').hide();
           $('#sumitionresult').show();
           $('#formheader').html("Thank you for submitting your answers.");
         }

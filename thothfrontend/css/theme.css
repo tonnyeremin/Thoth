@@ -76,6 +76,11 @@ h3{
     padding: 1em;
     border-radius: 4px;
   }
+
+  .mb-0{
+    margin-top: 12px;
+    margin-bottom: 24px;
+  }
   .support{
     background-color:#dc3445;
     color: white;
@@ -93,15 +98,12 @@ h3{
   }
 
 #sumitionresult {
-  display: block;
+  display: none;
 }
 
 #sumitionresult h2 {
+  margin-top: 36px;
   color: #dc3445;
-}
-
-#sumitionresult h3 {
-  margin-top: 24px;
 }
 
 /* Style all font awesome icons */
@@ -113,6 +115,11 @@ h3{
   text-decoration: none;
 }
 
+.modal-border .fa{
+  padding: 10px;
+  font-size: 20px;
+  width: 40px;
+}
 /* Add a hover effect if you want */
 .fa:hover {
   opacity: 0.7;
