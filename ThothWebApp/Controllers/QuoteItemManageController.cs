@@ -10,7 +10,7 @@ using ThothBase;
 namespace Thoth
 {
     [Route("manage/quoteitem")]
-      [AllowAnonymous]
+    [Authorize()] 
     public class QuoteItemManageController  : ControllerBase
     {
         private readonly IDataRepository<QuoteItem> _repository;
@@ -47,6 +47,7 @@ namespace Thoth
            }
 
        }
+
 
        //GET: api/quotaitem/1
         [HttpGet("{id}")]

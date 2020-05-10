@@ -1,17 +1,16 @@
-//const api = "https://thothwebapp.azurewebsites.net/manage/quoteitem";
 
-const api = "https://localhost:5001/manage/quoteitem";
 
 $(document).ready(function(){
+   
     $(".shownew").click(shownew);
     $(".showall").click(showall);
     $(".addrow").click(addnewrow);
     $(".butomSave").click(savechanges);
     $(".prev a").click(function(){switchpage(true)});
     $(".next a").click(function(){switchpage(false)});
-    refreshview();                            
+    refreshview();
     });
-
+      
     function shownew()
     {
         $("#recordsTable").data("new", 1)
@@ -80,21 +79,45 @@ $(document).ready(function(){
                         });
             }
         };
-
+    
     function refreshview(){
         $new = $("#recordsTable").data("new");
         $current =  $(".current a").data("current");
-        $link = api+"?NewOnly="+$new+"&pageNumber="+ $current;
-        
+        $link = apiConfig.webApi+"?NewOnly="+$new+"&pageNumber="+ $current;
+       
         $("#recordsTable tr").slice(1).remove();
-        $.getJSON($link, {
-      
-        }).done(function(data, text, request){
-               
-            populatepagination(request.getResponseHeader('x-pagination'));    
+
+        getTokenPopup(tokenRequest)
+        .then(tokenResponse => {
+            console.log("access_token acquired at: " + new Date().toString());
+            const bearer = `Bearer ${tokenResponse.accessToken}`;
+            try {
             
-            data.forEach(record => addrow(record));
-            }) 
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                data:"",
+               
+                url: $link,
+           
+                success: function(data, text, request) {
+                    populatepagination(request.getResponseHeader('x-pagination'));    
+                    data.forEach(record => addrow(record));
+                },
+                error: function( jqXHR, textStatus, errorThrown){
+                    console.log(errorThrown)
+                }
+                
+               
+                
+                
+            });
+            } catch(err) {
+            console.log(err);
+            }
+        });
+
+       
     };
 
     function populatepagination(header)
@@ -135,7 +158,7 @@ $(document).ready(function(){
 
     function editrow(obj){
         var $id = $(obj).data("id"); 
-        $.getJSON(api+"/"+$id, {
+        $.getJSON(apiConfig.webApi+"/"+$id, {
         }).done(function(data){
             $("#id").val(data.id);
             $('#quoteModal').data("id", data.id);  
@@ -152,7 +175,7 @@ $(document).ready(function(){
     {
         var $id = $(obj).data("id");
         $.ajax({
-            url: api+"/"+$id,
+            url: apiConfig.webApi+"/"+$id,
             type: 'delete',
             crossdomain: true,
             success: function(data) {
