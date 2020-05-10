@@ -60,17 +60,8 @@ namespace Thoth
             services.AddDbContext<ThothBase.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ThothDB"]));
             services.AddScoped<ThothBase.IDataRepository<ThothBase.QuoteItem>, ThothBase.QuoteItemManager>();
             services.AddControllers();
-             services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder
-                        .AllowAnyMethod()
-                        .AllowAnyOrigin()
-                        .WithExposedHeaders("x-pagination")
-                        .WithExposedHeaders("Authorization")
-                        .SetIsOriginAllowed((host) => true)
-                        .AllowAnyHeader());
-            });
+            services.AddCors(); // Make sure you call this previous to AddMvc
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,7 +73,8 @@ namespace Thoth
             }
 
             app.UseHttpsRedirection();
-            app.UseCors("CorsPolicy");
+            app.UseCors(options => options.WithOrigins("http://example.com").AllowAnyMethod());
+     
             app.UseRouting();
             app.UseCookiePolicy();
             app.UseAuthentication();
