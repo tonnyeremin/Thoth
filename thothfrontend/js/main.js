@@ -1,5 +1,5 @@
 
-const api = "https://thothwebapp.azurewebsites.net/api/quoteitem";
+const api = "https://api.tipmeup.org/api/quoteitem";
 
 $(document).ready(function(){
     $('#loadspinner').hide(); 

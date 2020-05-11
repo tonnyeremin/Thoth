@@ -1,6 +1,6 @@
 const apiConfig = {
     scopes: ["api://thothapi/user_impersonation"] ,
-    webApi: "https://thothwebapp.azurewebsites.net/manage/quoteitem"
+    webApi: "https://api.tipmeup.org/manage/quoteitem"
   };
 
 const msalConfig = {
