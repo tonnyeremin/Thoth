@@ -41,7 +41,7 @@ namespace Thoth
             services.AddAuthentication(AzureADDefaults.AuthenticationScheme)
                     .AddAzureAD(options => Configuration.Bind("AzureAd", options));
 
-            services.Configure<OpenIdConnectOptions>(AzureADDefaults.OpenIdScheme, options =>
+            services.Configure<OpenIdConnectOptions>(AzureADDefaults.BearerAuthenticationScheme, options =>
             {
                 options.Authority = options.Authority + "/v2.0/";    
 

@@ -6,7 +6,7 @@ const apiConfig = {
 const msalConfig = {
     auth: {
         clientId: "84b484d7-446f-471e-a300-96e4ec7dc9fe",
-        authority: "https://login.microsoftonline.com/edd0fa85-fa74-4725-89be-78f496ea195b/",
+        authority: "https://login.microsoftonline.com/9188040d-6c67-4c5b-b112-36a304b66dad/v2.0",
         validateAuthority: false
     },
     cache: {
