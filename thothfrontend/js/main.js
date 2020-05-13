@@ -20,7 +20,6 @@ function populateShare(document){
   $('#linkedin').attr("href", 'https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent($url))
   $('#whatsapp').attr("href", 'https://api.whatsapp.com/send?text=' + $text  + '%20' +encodeURIComponent($url))
   $('#telegram').attr("href", 'https://t.me/share/url?url=' + $url + '&text=zxXZx' +$text)
-  $('#envelope').attr("href", 'mailto: ?subject=' + $text + '&body=' + $url)
 }
 
 function populateQuoteShare(data){
@@ -47,7 +46,6 @@ function populateQuoteShare(data){
   $('#mlinkedin').attr("href", 'https://www.linkedin.com/sharing/share-offsite/?url='+$url)
   $('#mwhatsapp').attr("href", 'https://api.whatsapp.com/send?text=' + $text  + '%20' +$url)
   $('#mtelegram').attr("href", 'https://t.me/share/url?url=' + $url + '&text=' +$text)
-  $('#menvelope').attr("href", 'mailto: ?subject=' + 'TipsForMe' + '&body=' + $text)
 }
 
 function showrandom(data){

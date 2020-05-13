@@ -92,6 +92,18 @@ h3{
     border-radius: 4px;
 
   }
+  .ico-margin{
+    text-align: center;
+  }
+  .ico-margin li{
+    padding-top: 10px;
+  }
+
+  .modal-content button{
+    text-align: right;
+    padding-top: 12px;
+    padding-right: 12px;
+  }
 
  
 
@@ -102,6 +114,27 @@ h3{
 #sumitionresult h2 {
   margin-top: 36px;
   color: #dc3445;
+}
+
+
+.site-header  .fa-facebook {
+  color: black;
+  background: transparent;
+}
+
+.site-header  .fa-twitter {
+  color: black;
+  background: transparent;
+}
+.site-header ul{
+  margin-top: 12px;
+}
+.site-header .fa {
+  padding: 10px;
+  font-size: 20px;
+  width: 20px;
+  text-align: center;
+  text-decoration: none;
 }
 
 /* Style all font awesome icons */
