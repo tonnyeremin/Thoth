@@ -60,7 +60,12 @@ namespace Thoth
             services.AddDbContext<ThothBase.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ThothDB"]));
             services.AddScoped<ThothBase.IDataRepository<ThothBase.QuoteItem>, ThothBase.QuoteItemManager>();
             services.AddControllers();
-            services.AddCors(); // Make sure you call this previous to AddMvc
+           services.AddCors(o => o.AddPolicy("ApiPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
 
         }
 
@@ -73,7 +78,7 @@ namespace Thoth
             }
 
             app.UseHttpsRedirection();
-            app.UseCors(options => options.WithOrigins("http://example.com").AllowAnyMethod());
+            app.UseCors("ApiPolicy");
      
             app.UseRouting();
             app.UseCookiePolicy();
