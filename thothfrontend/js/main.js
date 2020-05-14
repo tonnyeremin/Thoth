@@ -42,7 +42,7 @@ function populateQuoteShare(data){
   $text = encodeURIComponent($quote +' by '+ $auth);
 
   $('#mtweet').attr("href", 'https://twitter.com/intent/tweet?text='+$text+'&url='+$url)
-  $('#mfacebook').attr("href",'http://www.facebook.com/sharer/sharer.php?display=page&u='+$url+'&t=' + $text)
+  $('#mfacebook').attr("href",'http://www.facebook.com/sharer/sharer.php?display=page&u='+$url+'&s=' +  $text + "&images[0]=https://www.tipmeup.org/img/header.webp"+ "&t=TipMeUp")
   $('#mlinkedin').attr("href", 'https://www.linkedin.com/sharing/share-offsite/?url='+$url)
   $('#mwhatsapp').attr("href", 'https://api.whatsapp.com/send?text=' + $text  + '%20' +$url)
   $('#mtelegram').attr("href", 'https://t.me/share/url?url=' + $url + '&text=' +$text)
