@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ThothManage</title>
+    <title>@ViewData["Title"] - TipMeUp Management Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ThothManage</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TipMeUp Management Portal</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,15 +19,7 @@
                 <partial name="_LoginPartial" />
         </nav>
     </header>
-     <div class="row">
-            <div class="container">
-                 <nav class="nav nav-pills flex-column flex-sm-row">
-                        <a class="flex-sm-fill text-sm-center nav-link shownew active" asp-area="" asp-controller="Home" asp-action="NewItems">New Items</a>
-                        <a class="flex-sm-fill text-sm-center nav-link showall" asp-controller="Home" asp-action="NewItems">All Items</a>
-                        <a class="flex-sm-fill text-sm-center nav-link addrow" asp-controller="Details" asp-action="Add">Add New</a>
-                </nav>
-            </div>
-     </div>
+    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

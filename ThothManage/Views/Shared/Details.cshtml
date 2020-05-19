@@ -1,0 +1,42 @@
+
+@{
+  
+    ViewData["Title"] = "Item Details";
+}
+
+@model QuoteItemExDTO
+
+<form id="editform" method="POST">
+    @if(!string.IsNullOrEmpty(Model.Id))
+    {
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.Id)
+            @Html.TextBox("Id", Model.Id, new { @class="form-control-plaintext"})
+        </div>
+        <div class="form-group"> 
+            @Html.LabelFor(Model => Model.PostTime)
+            @Html.TextBox("PostTime", Model.PostTime, new { @class="form-control-plaintext"})
+        </div>
+    }
+    <div class="form-group"> 
+        @Html.LabelFor(Model => Model.Author)
+        @Html.TextBox("Author", Model.Author, new { @class="form-control"})
+    </div>
+     <div class="form-group"> 
+        @Html.LabelFor(Model => Model.IsVisible)
+        @Html.CheckBox("isVisible", bool.Parse(Model.IsVisible), new { @class="form-check-input"})
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(Model => Model.PrimaryText)
+        @Html.TextArea("PrimaryText", Model.PrimaryText, new { @class = "form-control", @rows ="4" })              
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(Model => Model.SecondaryText)
+        @Html.TextArea("PrimaryText", Model.SecondaryText, new { @class = "form-control", @rows ="2" })
+    </div>
+
+    @Html.ActionLink("Cancel", "Cancel", null, new {@class = "btn btn-outline-primary", data_confirmprompt = "Are you sure you want to exit this?"})
+    <input type="submit" class="btn btn-outline-primary"  value="Save"/>
+</form>
+
+

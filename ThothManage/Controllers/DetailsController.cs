@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -20,8 +21,8 @@ namespace ThothManage.Controllers
         {
             _logger = logger;
             _repository = repository;
-        }
-
+           }
+        [HttpGet]
         public async Task<IActionResult> Edit(long id)
         {
             try
@@ -62,12 +63,24 @@ namespace ThothManage.Controllers
                  return BadRequest(new { Message = "Some errors occured. Please, try agian later." });
             }
        }
-       
-        public async Task<IActionResult> Add()
+        [HttpGet]
+        public IActionResult Add()
         {
             try
             {
-                 return View("Details");
+                 return View("Details", new QuoteItemExDTO(){PostTime = DateTime.UtcNow.ToString(), IsVisible= "false"} );
+            }
+            catch(Exception)
+            {
+                 return BadRequest(new { Message = "Some errors occured. Please, try agian later." });
+            }
+        }
+
+         public IActionResult Cancel()
+        {
+            try
+            {
+                return RedirectToAction("NewItems", "Home");
             }
             catch(Exception)
             {
@@ -94,15 +107,40 @@ namespace ThothManage.Controllers
             }
         }
 
-        public async Task<IActionResult> Save(long id, [FromBody]QuoteItemExDTO item)
+         [HttpPost]
+        public async Task<IActionResult> Edit(long id, QuoteItemExDTO model)
         {
             try
             {
+                var newItem = Utils.GetItem(model);
+                var item = await _repository.Get(id);
+                if (item == null)
+                {
+                    return NotFound();
+                }
+                item.IsApproved = true;
+                await _repository.Update(id, newItem);
+                
+               return RedirectToAction("NewItems", "Home");
+            }
+            catch(Exception)
+            {
+                 return BadRequest(new { Message = "Some errors occured. Please, try agian later." });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(QuoteItemExDTO item)
+        {
+            try
+            {
+              
                 var model = Utils.GetItem(item);
                 model.PostTime = DateTime.UtcNow;
                 model.IsApproved = true;
-                await _repository.Update(id, model); 
-               return RedirectToAction("NewItems");
+                await _repository.Add(model);
+               
+                return RedirectToAction("NewItems", "Home");
             }
             catch(Exception)
             {

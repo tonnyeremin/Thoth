@@ -23,7 +23,7 @@ namespace ThothManage.Controllers
         public async Task<IActionResult> Index()
         {
              var items = await _repository.GetAll(new  QuoteItemParameters());
-                var list =  PagedList<QuoteItemExDTO>.ToPagedList(items.Select(s=> Utils.GetDTO(s)).AsQueryable(), 1, 20);
+                var list =  PagedList<QuoteItemExDTO>.ToPagedList(items.Select(s=> Utils.GetDTO(s)).AsQueryable(), 1, 20, true);
                 return View("Index", list);
         }
 
@@ -33,7 +33,7 @@ namespace ThothManage.Controllers
            try
            {
                 var items = await _repository.GetAll(parameters);
-                var list =  PagedList<QuoteItemExDTO>.ToPagedList(items.Select(s=>  Utils.GetDTO(s)).AsQueryable(), parameters.PageNumber, parameters.PageSize);
+                var list =  PagedList<QuoteItemExDTO>.ToPagedList(items.Select(s=>  Utils.GetDTO(s)).AsQueryable(), parameters.PageNumber, parameters.PageSize,  parameters.NewOnly ==0);
                 return View("Index", list);
            }
            catch(Exception)
