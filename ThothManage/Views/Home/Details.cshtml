@@ -1,0 +1,43 @@
+
+@model QuoteItemExDTO
+
+<form id="editform">
+    <div class="form-row">
+        <div class="col-2">
+            @Html.LabelFor(Model => Model.Id)
+        </div>
+        <div class="col">
+            @Html.TextBox("Id", Model.Id, new { @class="form-control-plaintext"})
+        </div>
+        <div class="col-2">
+            @Html.LabelFor(Model => Model.PostTime)
+        </div>
+        <div class="col">
+            @Html.TextBox("PostTime", Model.PostTime, new { @class="form-control-plaintext"})
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-2">
+            @Html.LabelFor(Model => Model.Author)
+        </div>
+        <div class="col">
+            @Html.TextBox("Author", Model.Author, new { @class="form-control"})
+        </div>
+        <div class="col">
+            @Html.CheckBox("isVisible", bool.Parse(Model.IsVisible), new { @class="form-check-input"})
+            @Html.LabelFor(Model => Model.IsVisible)
+        </div>
+    </div>
+     <div class="form-row">
+    <div class="form-group">
+        @Html.LabelFor(Model => Model.PrimaryText)
+        @Html.TextArea("PrimaryText", Model.PrimaryText, new { @class = "form-control", @rows ="4" })              
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(Model => Model.SecondaryText)
+        @Html.TextArea("PrimaryText", Model.SecondaryText, new { @class = "form-control", @rows ="2" })
+    </div>
+</form>
+<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+<button type="button" class="btn btn-outline-primary butomSave">Save changes</button>
+

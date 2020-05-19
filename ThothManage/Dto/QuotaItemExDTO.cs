@@ -1,4 +1,4 @@
-namespace Thoth
+namespace ThothManage
 {
     public class QuoteItemExDTO : QuoteItemDTO
     {

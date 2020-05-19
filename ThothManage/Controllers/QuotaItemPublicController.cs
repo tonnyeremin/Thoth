@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ThothBase;
+using ThothManage;
 
-namespace Thoth
+namespace ThothManage.Controllers
 {
     [Route("api/quoteitem")]
     public class QuotaItemPublicController  : ControllerBase

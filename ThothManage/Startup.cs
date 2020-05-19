@@ -13,12 +13,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
-namespace Thoth
+
+namespace ThothManage
 {
     public class Startup
     {
@@ -56,11 +57,13 @@ namespace Thoth
                 options.Filters.Add(new AuthorizeFilter(policy));
             })
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+           
 
             services.AddDbContext<ThothBase.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ThothDB"]));
             services.AddScoped<ThothBase.IDataRepository<ThothBase.QuoteItem>, ThothBase.QuoteItemManager>();
             services.AddControllers();
-           services.AddCors(o => o.AddPolicy("ApiPolicy", builder =>
+            services.AddControllersWithViews();
+             services.AddCors(o => o.AddPolicy("ApiPolicy", builder =>
             {
                 builder.AllowAnyOrigin()
                     .AllowAnyMethod()
@@ -76,18 +79,27 @@ namespace Thoth
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
+           
             app.UseHttpsRedirection();
             app.UseCors("ApiPolicy");
-     
+            app.UseStaticFiles();
+
             app.UseRouting();
-            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
