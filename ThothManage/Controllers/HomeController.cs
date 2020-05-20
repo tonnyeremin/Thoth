@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ThothBase;
 using ThothManage.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ThothManage.Controllers
 {
@@ -24,7 +25,7 @@ namespace ThothManage.Controllers
         public async Task<IActionResult> Index()
         {
              var items = await _repository.GetAll(new  QuoteItemParameters());
-                var list =  PagedList<QuoteItemExDTO>.ToPagedList(items.Select(s=> Utils.GetDTO(s)).AsQueryable(), 1, 20, true);
+                var list =  PagedList<QuoteItemExDTO>.ToPagedList(items.Select(s=> Utils.GetDTO(s)).AsQueryable(), 1, 20, false);
                 return View("Index", list);
         }
 
