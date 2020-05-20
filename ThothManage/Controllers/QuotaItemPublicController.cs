@@ -32,9 +32,9 @@ namespace ThothManage.Controllers
 
                 return GetQuoteDtoItem(item);
            }
-           catch(Exception)
+           catch(Exception ex)
            {
-                 return BadRequest(new { Message = "Some errors occured. Please, try agian later." });
+                 return BadRequest(new { Message = ex.Message });
            }
        }
 
