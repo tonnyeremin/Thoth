@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ThothManage.Controllers
 {
-    [Authorize()]
+   
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -28,7 +28,6 @@ namespace ThothManage.Controllers
                 var list =  PagedList<QuoteItemExDTO>.ToPagedList(items.Select(s=> Utils.GetDTO(s)).AsQueryable(), 1, 20, false);
                 return View("Index", list);
         }
-
 
        public async Task<ActionResult<PagedList<QuoteItemExDTO>>> NewItems([FromQuery] QuoteItemParameters parameters)
        {
