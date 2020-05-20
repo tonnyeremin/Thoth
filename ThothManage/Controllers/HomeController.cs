@@ -10,6 +10,7 @@ using ThothManage.Models;
 
 namespace ThothManage.Controllers
 {
+    [Authorize()]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
