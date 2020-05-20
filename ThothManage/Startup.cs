@@ -59,7 +59,7 @@ namespace ThothManage
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
            
 
-            services.AddDbContext<ThothBase.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:ThothDB"]));
+            services.AddDbContext<ThothBase.ThothContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:Thoth"]));
             services.AddScoped<ThothBase.IDataRepository<ThothBase.QuoteItem>, ThothBase.QuoteItemManager>();
             services.AddControllers();
             services.AddControllersWithViews();
