@@ -32,7 +32,7 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(Model => Model.SecondaryText)
-        @Html.TextArea("PrimaryText", Model.SecondaryText, new { @class = "form-control", @rows ="2" })
+        @Html.TextArea("SecondaryText", Model.SecondaryText, new { @class = "form-control", @rows ="2" })
     </div>
 
     @Html.ActionLink("Cancel", "Cancel", null, new {@class = "btn btn-outline-primary", data_confirmprompt = "Are you sure you want to exit this?"})
